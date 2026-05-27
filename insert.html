@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love</title>
+    <style>
+        body {
+    margin: 0;
+    background-color: #FF82BC;
+    font-family: 'Arial', sans-serif;
+}
+        h1 {
+            background-color: #EDF4F5;
+            color:  #FF82BC;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            min-width: 300px;
+            padding: 20px;
+            border-radius: 25px;
+        }
+        
+        p {
+    max-width: 600px;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+        button {
+            background-color: #FF82BC;
+            color: #EDF4F5;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #EDF4F5;
+            color: #FF82BC;
+        }
+        
+        .polaroid1 {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            top: 15px;
+            left: 17px;
+            background-color: white;
+            padding: 10px 10px 50px 10px;
+            transform: rotate(-20deg);
+            text-align: center;
+        }
+        
+        .polaroid1 img {
+            width: 100%;
+        }
+        
+        .polaroid2 {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            bottom: 15px;
+            right: 17px;
+            background-color: white;
+            padding: 10px 10px 30px 10px;
+            transform: rotate(20deg);
+            text-align: center;
+        }
+        
+        .polaroid2 img {
+            width: 100%;
+        }
+        
+        .caption {
+            font-family: "Times New Roman",serif;
+            justify-content: center;
+            font-size: 10px;
+        }
+        
+        .cat img {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            top: 60px;
+            right: 15px;
+        }
+        
+        .rose1 img {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            bottom: 304px;
+            left: 90px;
+        }
+        
+        .flower1 img {
+          position: absolute;
+            width: 230px;
+            height: 230px;
+            bottom: 40px;
+            left: 5px;
+            transform: rotate(-20deg);
+        }
+        
+.scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.98);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+
+    z-index: 1;
+}
+
+.scene.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: scale(1);
+    z-index: 10;
+}
+#letter h1 {
+    margin-bottom: 20px;
+}
+
+#letter p {
+    margin-bottom: 20px;
+}
+
+.card {
+    background: #EDF4F5;
+    padding: 28px 22px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    width: fit-content;
+    max-width: 320px;
+}
+
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card h1 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+    margin: 0;
+    max-width: 240px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.decor-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.polaroid1,
+.polaroid2,
+.cat,
+.rose1,
+.flower1{
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.home-center {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.home-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#letter {
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.letter-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 20px;
+    overflow-y: auto;
+}
+
+/* Keeps the card stable and readable */
+.letter-card {
+    width: min(650px, 92%);
+    text-align: left;
+    animation: fadeIn 0.6s ease;
+}
+
+/* Typography polish ONLY */
+.letter-card p {
+    margin-bottom: 14px;
+    line-height: 1.75;
+}
+
+/* Heading separation */
+.letter-card h1 {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+/* ===== MEMORIES POLAROIDS (SAFE ZONE) ===== */
+#memories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 60px 20px;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+/* Reusable polaroid style for memories only */
+#memories .polaroid3 {
+    position: relative;   /* overrides absolute */
+    width: 160px;
+    background: white;
+    padding: 10px 10px 35px 10px;
+    transform: rotate(-3deg);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#memories .polaroid3:hover {
+    transform: scale(1.05) rotate(0deg);
+}
+
+#memories .polaroid3 img {
+    width: 100%;
+}
+
+#memories .caption {
+    font-size: 10px;
+    font-family: "Times New Roman", serif;
+    margin-top: 5px;
+}
+
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+
+    background: white;
+    color: #FF82BC;
+
+    border: none;
+    border-radius: 20px;
+
+    padding: 10px 18px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+    transition: 0.2s ease;
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+    background: #FFD6E8;
+}
+    </style>
+</head>
+<body>
+<div id="home" class="scene active">
+
+  <div class="home-center">
+
+    <div class="decor-layer">
+      <div class="polaroid1" onclick="openMemory('CONGRATULATIONS!!','ANG GALING NG BABY KOOO!!! Nakaya mag with honors kahit na nakakamatay yung second sem (hehe eme lang po) IM SO PROUD OF YOU, MY LOOOVEEE!!!')">
+        <img src="recognition.jpeg">
+        <p class="caption">RECOGNITION 2026</p>
+      </div>
+
+      <div class="polaroid2" onclick="openMemory('Unexpected Walking','We did two laps, we outrun them by half a lap HAHAHAHAHA pero despite that, I still really enjoyed our time together at that day:^')">
+        <img src="jogging.jpeg">
+        <p class="caption">Walking Together</p>
+      </div>
+
+      <div class="cat" onclick="openMemory('My Love','Flowers for you, hehehe')">
+        <img src="cat-with-flowers.png">
+      </div>
+
+      <div class="rose1" onclick="openMemory('Roseee!','Your favorite flower!!')">
+        <img src="pink-rose.png">
+      </div>
+
+      <div class="flower1" onclick="openMemory('MOREEE','MORE FLOWERS! HEHEHE')">
+        <img src="flowers.png">
+      </div>
+    </div>
+
+    <div class="card">
+      <h1>Happy 5th Monthsarry, Love!</h1>
+      <button id="btn">Read My Letter</button>
+    </div>
+
+  </div>
+</div>
+
+<audio id="music" loop>
+  <source src="marry-you.mp3" type="audio/mpeg">
+</audio>
+
+<div id="letter" class="scene">
+
+<div class="letter-wrapper">
+
+  <div class="card letter-card">
+    
+    <h1>Hello, my loveee!!</h1>
+
+    <p>
+      Happy 5th monthsarry pooo!!
+    </p>
+
+    <p>
+      I just want to say na thank you so much for always being patient and kind sa akin palagi. Kahit na minsan mahirap ako intindihin, kahit na minsan nakakapagod ako ihandle, you still love me unconditionally.
+    </p>
+
+    <p>
+      Thank you for choosing to stay especially at times where it felt better to let go. Malaking bagay yun para sa akin, and palagi ako magiging thankful sayo kasi willing ka palaging bigyan ako ng another chance.
+    </p>
+
+    <p>
+       Sa mga araw na nahihirapan rin akong mahalin sarili ko, palagi mo ako inaasure na okay lang na mahalin ko sarili ko. Na kahit maraming problems na dumadaan, you're always willing to remind me and ground me back into reality.
+    </p>
+
+    <p>
+      Super grateful ko hindi lang sa mga bagay na ginagawa mo, pati na rin ikaw mismo.
+    </p>
+
+    <p>
+      Our relationship might've been unexpected, pero I will always choose to stay and love you more and more.
+    </p>
+
+    <p>
+      This website that I made may not be that much, but I really hope that you'll love it.
+    </p>
+
+    <p>
+      Happy monthsarry, love. We're still here, choosing each other everyday. I LOVE YOU SO MUCH!!
+    </p>
+
+    <button id="memoriesBtn">See Our Memories</button>
+
+  </div>
+
+</div>
+
+</div>
+
+<div id="memories" class="scene">
+
+    <h1>Our Memories</h1>
+    
+    <button class="back-btn" onclick="showScene('home')">
+    ← Back
+</button>
+    
+    <div class="polaroid3" onclick="openMemory('Prom', 'I remember this as our first time having prom. Even to this day, I could still remember how we went crazy when we were finally allowed to step on the dancefloor, HAHAHAHAHA')">
+      <img src="prom.jpeg">
+      <p>Senior's Night</p>
+    </div>
+    
+    <div class="polaroid3" onclick="openMemory('Hangout(s)', 'I remember this as one of the first times na pumunta ka sa bahay namin. It was also our first time being alone together. First time rin makita si mama ng malapitan HAHAHAHAHA, Ill never forget our hangouts and will always be excited to have more:))')">
+      <img src="hangout.jpeg">
+      <p>Hangout(s)</p>
+    </div>
+    
+    <div class="polaroid3" onclick="openMemory('First Monthsarry Date', 'I remember this as one of our first dates as couples na!!! I remember the first half of the day as not going so smoothly kasi merong pumuntang bisita sa amin na super unexpected rin. Im so glad that I was able to catch up (even if we had to get Katkat back) kasi that was one of the most fantastic days I had with you!<3')">
+      <img src="1monthsarry.jpg">
+      <p>First Monthsarry Date</p>
+    </div>
+    
+    <div class="polaroid3" onclick="openMemory('Official!', 'This photo always gives me both goosebumps and kilig, because this was the night that you finally said yes to me!! Ill never forget how happy we both are on that day. It was also the day that you gave me my first kiss on the cheek, YES KINIKILIG AKO HEHWHSHWHEHAHEHWHWHHWHE')">
+      <img src="yes.jpeg">
+      <p>The Night You Said Yes</p>
+    </div>
+    
+    <div class="polaroid3" onclick="openMemory('Grrr!!', 'I remember this as the day na we went out and I was still your suitorr!! Wala na yung hiya na pinapakita before, makapal na mukha ko, HAHAHAHAHA (hindi ko rin makalimutan yung mga kalbo T^T)')">
+      <img src="grr.jpeg">
+      <p>Year-End Party</p>
+    </div>
+    
+    <div class="polaroid3" onclick="openMemory('The First', 'I remember this as the fist ever picture of you na sinend mo sa akin. Palagi ko siya tinitignan before, especially nung kakasend mo palang kasi talagang kinikilig ako nun HAHAHAHAHA even now I still look and kinikilig pa rin ako. Lakas mo talaga, baby!')">
+      <img src="first.jpeg">
+      <p>First Photo You Ever Sent</p>
+    </div>
+    
+    <div class="polaroid3" onclick="openMemory('TORPE BY JAO', 'Our first date!! Grabe yung hiya ko sayo niyan, as in! HAHAHAHAHAHA, I remember that day with full details, from what chip you gave me, to what we did after natin magfilm viewing. It was definitely fun. I will always cherish every single moment that we had, we have, and we will have. I will always look forward to making more great memories with you. Happy 5th Monthsarry, my love; my baby; my wife!<3 PS: Pwede mo rin iclick yung first photos sa start, hehe, I LOVE YOU SO MUUUCHHH!!!')">
+      <img src="first-date.png">
+      <p>Our First Date</p>
+    </div>
+</div>
+<div id="popup" style="
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+">
+    <div style="
+        background: #EDF4F5;
+        padding: 25px;
+        border-radius: 20px;
+        max-width: 300px;
+        text-align: center;
+    ">
+        <p id="popupText"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+</div>
+
+</body>
+<script>
+function showScene(id) {
+    document.querySelectorAll(".scene").forEach(scene => {
+        scene.classList.remove("active");
+    });
+
+    const target = document.getElementById(id);
+    if (target) target.classList.add("active");
+}
+
+// HOME → LETTER
+const btn = document.getElementById("btn");
+if (btn) {
+    btn.addEventListener("click", () => {
+        const music = document.getElementById("music");
+        if (music) music.play().catch(() => {});
+        showScene("letter");
+    });
+}
+
+// LETTER → MEMORIES
+const memBtn = document.getElementById("memoriesBtn");
+if (memBtn) {
+    memBtn.addEventListener("click", () => {
+        showScene("memories");
+    });
+}
+
+function openMemory(title, text) {
+    document.getElementById("popupText").innerHTML =
+        `<strong>${title}</strong><br><br>${text}`;
+
+    document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+// MEMORIES → HOME
+const backBtn = document.getElementById("backHomeBtn");
+
+if (backBtn) {
+    backBtn.addEventListener("click", () => {
+        showScene("home");
+    });
+}
+</script>
+</html>
